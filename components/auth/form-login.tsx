@@ -32,8 +32,7 @@ export default function FormLogin() {
       const response = await axios.post("/api/users/login", data);
 
       if (response.status === 200) {
-        router.push("/dashboard");
-        router.refresh();
+        window.location.href = "/dashboard";
       }
     } catch (error: any) {
       setErrorMessage(
