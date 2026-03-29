@@ -1,22 +1,26 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyToken } from "./lib/jwt";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   const { pathname } = req.nextUrl;
 
-  const publicPaths = ["/login", "/register", "/api/users", "/api/users/login"];
-  if (publicPaths.some((path) => pathname.startsWith(path))) {
+  const isPublicApi =
+    (pathname === "/api/users" && req.method === "POST") ||
+    pathname === "/api/users/login" || // Login
+    (pathname.startsWith("/api/tasks") && req.method === "GET");
+
+  const isPublicPage = pathname === "/login" || pathname === "/register";
+
+  if (isPublicApi || isPublicPage) {
     return NextResponse.next();
   }
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-  const decoded = verifyToken(token);
-  if (!decoded) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -24,5 +28,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/tasks/:path*", "/api/tasks/:path*"],
+  matcher: ["/dashboard/:path*", "/tasks/:path*", "/api/:path*"],
 };
