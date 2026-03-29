@@ -26,7 +26,7 @@ Proyek ini adalah aplikasi **Task Manager** sederhana yang dibangun menggunakan 
 ### 1. Clone Repository
 
 ```bash
-git clone [https://github.com/username/task-manager.git](https://github.com/username/task-manager.git)
+git clone [https://github.com/hasbifirdaus/task-manager.git](https://github.com/username/task-manager.git)
 cd task-manager
 ```
 
