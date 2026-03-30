@@ -6,6 +6,12 @@ type Params = Promise<{ id: string }>;
 
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   try {
+    const user = await getCurrentUser();
+
+    if (!user) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
 
     const taskId = parseInt(id);
@@ -17,15 +23,17 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
       );
     }
 
-    const task = await prisma.task.findUnique({
+    const task = await prisma.task.findFirst({
       where: {
         id: taskId,
+        userId: user.id,
+        isDeleted: false,
       },
     });
 
     if (!task || task.isDeleted) {
       return NextResponse.json(
-        { message: "Task not found or has been deleted" },
+        { message: "Task not found or you don't have access" },
         { status: 404 },
       );
     }

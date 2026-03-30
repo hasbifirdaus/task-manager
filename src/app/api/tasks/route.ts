@@ -9,6 +9,14 @@ export async function POST(req: NextRequest) {
 
   try {
     const { title, description } = await req.json();
+
+    if (!title || title.trim() === "") {
+      return NextResponse.json(
+        { message: "Title is required and cannot be empty" },
+        { status: 400 },
+      );
+    }
+
     const task = await prisma.task.create({
       data: {
         title,

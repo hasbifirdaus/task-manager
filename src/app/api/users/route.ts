@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     if (userExist)
       return NextResponse.json(
         { message: "Email already used" },
-        { status: 400 },
+        { status: 409 },
       );
 
     const hashedPassword = await hash(password, 10);
