@@ -21,9 +21,9 @@ export default function EditTaskModal({
     e.preventDefault();
     try {
       const res = await axios.put(`/api/tasks/${task.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(task),
+        title: task.title,
+        description: task.description,
+        completed: task.completed,
       });
 
       if (res.status === 200) {

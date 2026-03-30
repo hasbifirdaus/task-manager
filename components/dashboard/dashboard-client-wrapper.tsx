@@ -28,7 +28,7 @@ export default function DashboardClient({ initialUser }: { initialUser: any }) {
   const fetchTasks = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get("/api/tasks");
+      const res = await axios.get(`/api/users/${initialUser.id}/tasks`);
       setTasks(res.data);
     } catch (error) {
       console.error("Failed to fetch tasks", error);

@@ -81,7 +81,9 @@ export default function SettingsContent({ userId }: SettingsContentProps) {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`/api/users/${userId}`, { method: "DELETE" });
+      const res = await fetch(`/api/users/${userId}/hard-delete`, {
+        method: "DELETE",
+      });
       if (res.ok) {
         alert("Account has been deleted.");
         window.location.href = "/register";
