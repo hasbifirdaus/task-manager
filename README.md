@@ -210,7 +210,7 @@ npm run dev
 
    Response:
 
-   ```json
+   ```text
    Status: 201 Created
    ```
 
@@ -257,6 +257,10 @@ npm run dev
 
    Response:
 
+   ```text
+   Status: 200 OK
+   ```
+
    ```json
    {
      "id": 9,
@@ -272,6 +276,10 @@ npm run dev
    ```
 
    Response Error:
+
+   ```text
+   Status: 401 Unauthorized
+   ```
 
    ```json
    {
