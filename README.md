@@ -126,7 +126,7 @@ npm run dev
 
    Response:
 
-   ```json
+   ```text
    Status: 200 OK
    ```
 
